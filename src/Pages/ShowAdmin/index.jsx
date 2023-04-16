@@ -98,47 +98,49 @@ const ShowAdmin = () => {
               <tbody>
                 {orders.map((e, i) => {
                   return (
-                    <tr key={i} className="text-center">
-                      <td>{i + 1}</td>
-                      <td>{e.name}</td>
-                      <td>{e.surname}</td>
-                      <td>{e.userName}</td>
-                      <td>
-                        <div>
-                          <div
-                            className="input-group"
-                            style={{ width: "150px" }}
-                          >
-                            <input
-                              className="form-control"
-                              value={e.password}
-                              disabled
-                              id={"user_password_" + i}
-                              type="password"
-                              placeholder="Enter password"
-                            />
-
-                            <Button
-                              className="btn-group d-flex align-items-center"
-                              variant="outline-secondary"
-                              onClick={() => {
-                                onShowPassword(i);
-                              }}
+                    e._id !== localStorage.getItem("id") && (
+                      <tr key={i} className="text-center">
+                        <td>{i + 1}</td>
+                        <td>{e.name}</td>
+                        <td>{e.surname}</td>
+                        <td>{e.userName}</td>
+                        <td>
+                          <div>
+                            <div
+                              className="input-group"
+                              style={{ width: "150px" }}
                             >
-                              <FaEyeSlash />
-                            </Button>
+                              <input
+                                className="form-control"
+                                value={e.password}
+                                disabled
+                                id={"user_password_" + i}
+                                type="password"
+                                placeholder="Enter password"
+                              />
+
+                              <Button
+                                className="btn-group d-flex align-items-center"
+                                variant="outline-secondary"
+                                onClick={() => {
+                                  onShowPassword(i);
+                                }}
+                              >
+                                <FaEyeSlash />
+                              </Button>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-info"
-                          onClick={() => onDeleteUser(e._id)}
-                        >
-                          O'chirish
-                        </button>
-                      </td>
-                    </tr>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-info"
+                            onClick={() => onDeleteUser(e._id)}
+                          >
+                            O'chirish
+                          </button>
+                        </td>
+                      </tr>
+                    )
                   );
                 })}
               </tbody>
@@ -149,15 +151,15 @@ const ShowAdmin = () => {
                 <div className="card">
                   <div className="card-body">
                     <p className="text-center">
-                      Sizda buyurtmalar mavjud emas. Buyurtma qilish uchun{" "}
+                      Tizimda Adminlar aniqlanmadi,{" "}
                       <Link
                         className="text-primary text-decoration-none"
                         style={{ fontWeight: 700 }}
-                        to={"/"}
+                        to={"/create-admin"}
                       >
-                        Asosiy
+                        Admin qo'shish
                       </Link>{" "}
-                      sahifaga o'ting
+                      sahifasiga o'ting
                     </p>
                   </div>
                 </div>

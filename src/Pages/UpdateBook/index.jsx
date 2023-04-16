@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import UploadImg from "../../Components/UploadImg";
 import { Label } from "reactstrap";
 import axios from "axios";
 import { mainUrl } from "../../MainUrl/mainUrl";
 import { ToastContainer, toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
-function CreateBook() {
+function UpdateBook() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState("");
@@ -14,30 +14,42 @@ function CreateBook() {
   const [description, setDescription] = useState("");
   const [publisher, setPublisher] = useState("");
   const [publishedDate, setPublishedDate] = useState("");
-  const [coverImg, setCoverImg] = useState();
+
+  const params = useParams();
+
+  useEffect(() => {
+    axios.get(mainUrl + "/api/books/" + params.id).then((res) => {
+      setAuthor(res.data.data.author);
+      setTitle(res.data.data.title);
+      setDescription(res.data.data.description);
+      setISBN(res.data.data.ISBN);
+      setPages(res.data.data.numberOfPages);
+      setPublisher(res.data.data.publisher);
+      setPublishedDate(res.data.data.dateOfPrint.split("T")[0]);
+    });
+  }, [params.id]);
 
   const handleSubmit = () => {
-    const formData = new FormData();
-    formData.append("image", coverImg);
-    formData.append("title", title);
-    formData.append("author", author);
-    formData.append("dateOfPrint", publishedDate);
-    formData.append("description", description);
-    formData.append("numberOfPages", pages);
-    formData.append("ISBN", ISBN);
-    formData.append("publisher", publisher);
-    formData.append("typeOfCover", "Qattiq");
-    formData.append("alphabet", "Lotin");
-
     axios
-      .post(mainUrl + "/api/teacher/book/create", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+      .put(
+        mainUrl + "/api/teacher/book/" + params.id,
+        {
+          title,
+          author,
+          dateOfPrint: publishedDate,
+          description,
+          numberOfPages: pages,
+          ISBN,
+          publisher,
         },
-      })
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
       .then((res) => {
-        toast.success("Kitob tizimga qo'shildi", {
+        toast.success("Kitob o'zgartirildi", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: false,
@@ -47,14 +59,13 @@ function CreateBook() {
           progress: undefined,
         });
         setAuthor("");
-        setCoverImg("");
         setDescription("");
         setISBN("");
         setPages("");
         setPublishedDate("");
         setPublisher("");
         setTimeout(() => {
-          window.location.href = "/create-book";
+          window.location.href = "/";
         }, 2000);
       })
       .catch((error) => {
@@ -75,7 +86,7 @@ function CreateBook() {
     <div className="container">
       <ToastContainer />
       <h1>Yangi kitob yaratish</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group controlId="title">
           <Form.Label>Kitob Nomi</Form.Label>
           <Form.Control
@@ -115,16 +126,6 @@ function CreateBook() {
             onChange={(event) => setDescription(event.target.value)}
           />
         </Form.Group>
-
-        <Form.Group controlId="coverImg">
-          <Form.Label>Kitob rasmi</Form.Label>
-          <UploadImg
-            img={coverImg}
-            setImg={setCoverImg}
-            defaultImg=""
-            altText="Book Cover"
-          />
-        </Form.Group>
         <Form.Group controlId="publisher">
           <Form.Label>Nashriyot nomi</Form.Label>
           <Form.Control
@@ -155,11 +156,11 @@ function CreateBook() {
           />
         </Form.Group>
         <Button className="mt-2 mb-3" variant="primary" onClick={handleSubmit}>
-          Yaratish
+          O'zgartirish
         </Button>
       </Form>
     </div>
   );
 }
 
-export default CreateBook;
+export default UpdateBook;

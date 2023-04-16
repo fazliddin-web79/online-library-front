@@ -9,15 +9,10 @@ const HomePage = () => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    axios
-      .get(`${mainUrl}/api/books/all`)
-      .then((res) => {
-        setBooks(res.data.books);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axios.get(`${mainUrl}/api/books/all`).then((res) => {
+      setBooks(res.data.books);
+      setIsLoading(false);
+    });
   }, []);
   return (
     <div>
@@ -25,10 +20,13 @@ const HomePage = () => {
         <Loading />
       ) : (
         <div className="d-flex flex-wrap wrapper-card-books">
-          {books.length &&
+          {books.length ? (
             books.map((e) => {
               return <BookCard data={e} key={e._id} />;
-            })}
+            })
+          ) : (
+            <div className="text-center">Kutubxonada kitoblar mavjud emas</div>
+          )}
         </div>
       )}
     </div>

@@ -100,7 +100,7 @@ function NavigationBar() {
                   <span>
                     {" "}
                     {String(new Date(time).getHours()).padStart(2, "0") +
-                      "." +
+                      ":" +
                       String(new Date(time).getMinutes()).padStart(2, "0")}{" "}
                   </span>
                 </div>
@@ -109,7 +109,7 @@ function NavigationBar() {
             {localStorage.getItem("loged") && localStorage.getItem("user") ? (
               <NavDropdown
                 style={{ fontWeight: 600, color: "rgba(0,0,0,1)" }}
-                title="Fazliddin"
+                title={JSON.parse(localStorage.getItem("user")).name}
                 id="basic-nav-dropdown"
               >
                 {localStorage.getItem("rol") === "admin" && (
@@ -123,7 +123,9 @@ function NavigationBar() {
                   </NavItem>
                 )}
                 {localStorage.getItem("rol") === "teacher" && (
-                  <NavItem>Mening Kitoblarim</NavItem>
+                  <NavItem onClick={() => navigate("/my-add-books")}>
+                    Mening Kitoblarim
+                  </NavItem>
                 )}
 
                 <NavItem>Sozlamalar</NavItem>

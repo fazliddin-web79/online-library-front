@@ -148,15 +148,15 @@ const ShowUsers = () => {
                 <div className="card">
                   <div className="card-body">
                     <p className="text-center">
-                      Sizda buyurtmalar mavjud emas. Buyurtma qilish uchun{" "}
+                      Tizimda foydalanuvchilar aniqlanmadi,{" "}
                       <Link
                         className="text-primary text-decoration-none"
                         style={{ fontWeight: 700 }}
-                        to={"/"}
+                        to={"/register"}
                       >
-                        Asosiy
+                        Ro'yhatdan o'tish
                       </Link>{" "}
-                      sahifaga o'ting
+                      sahifasiga o'ting
                     </p>
                   </div>
                 </div>

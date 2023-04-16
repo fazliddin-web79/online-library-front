@@ -164,6 +164,12 @@ const BookPage = () => {
                   <strong>Nashriyot nomi:</strong> {book.publisher}
                 </li>
                 <li>
+                  <strong>Muqova turi:</strong> {book.typeOfCover}
+                </li>
+                <li>
+                  <strong>Alifbosi:</strong> {book.alphabet}
+                </li>
+                <li>
                   <strong>Chop etilgan sana:</strong>{" "}
                   {new Date(book.dateOfPrint)
                     .toLocaleDateString("en-US", {
@@ -188,9 +194,18 @@ const BookPage = () => {
               ) : localStorage.getItem("loged") &&
                 localStorage.getItem("rol") === "teacher" &&
                 localStorage.getItem("id") === book.createdUser ? (
-                <button className="btn btn-primary">O'zgartirsh</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate("/update/" + params.id)}
+                >
+                  O'zgartirsh
+                </button>
               ) : localStorage.getItem("loged") &&
                 localStorage.getItem("rol") === "admin" ? (
+                ""
+              ) : localStorage.getItem("loged") &&
+                localStorage.getItem("rol") === "teacher" &&
+                localStorage.getItem("id") !== book.createdUser ? (
                 ""
               ) : (
                 <Link to={"/login"}>Buyurtma berish uchun tizimga kiring</Link>

@@ -148,15 +148,15 @@ const ShowTeachers = () => {
                 <div className="card">
                   <div className="card-body">
                     <p className="text-center">
-                      Sizda buyurtmalar mavjud emas. Buyurtma qilish uchun{" "}
+                      Tizimda Kutubxonachilar aniqlanmadi,{" "}
                       <Link
                         className="text-primary text-decoration-none"
                         style={{ fontWeight: 700 }}
-                        to={"/"}
+                        to={"/create-teacher"}
                       >
-                        Asosiy
+                        Kutubxonachi qo'shish
                       </Link>{" "}
-                      sahifaga o'ting
+                      sahifasiga o'ting
                     </p>
                   </div>
                 </div>

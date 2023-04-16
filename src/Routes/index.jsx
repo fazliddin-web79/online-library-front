@@ -13,6 +13,8 @@ import ShowTeachers from "../Pages/ShowTeachers";
 import ShowAdmin from "../Pages/ShowAdmin";
 import AddTeacher from "../Pages/AddTeacher";
 import AddAdmin from "../Pages/AddAdmin";
+import ShowMyBooks from "../Pages/ShowMyBooks";
+import UpdateBook from "../Pages/UpdateBook";
 
 const RouterComponent = () => {
   return (
@@ -37,6 +39,12 @@ const RouterComponent = () => {
         )}
         {localStorage.getItem("rol") === "teacher" && (
           <Route element={<CreateBook />} path="/create-book" />
+        )}
+        {localStorage.getItem("rol") === "teacher" && (
+          <Route element={<ShowMyBooks />} path="/my-add-books" />
+        )}
+        {localStorage.getItem("rol") === "teacher" && (
+          <Route element={<UpdateBook />} path="/update/:id" />
         )}
         {localStorage.getItem("rol") === "teacher" && (
           <Route element={<Orderstable />} path="/all-orders" />
