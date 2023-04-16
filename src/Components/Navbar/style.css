@@ -1,0 +1,25 @@
+.navbar-item {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  text-decoration: none;
+}
+.server-time span {
+  font-size: 12px;
+}
+.server-time div span {
+  font-size: 16px;
+  font-weight: 600;
+}
+.dropdown-toggle.nav-link {
+  color: black;
+}
+.dropdown-menu.show {
+  gap: 10px;
+}
+.dropdown-menu.show .nav-item {
+  padding-left: 15px;
+  cursor: pointer;
+}
+.dropdown-menu.show .nav-item:hover {
+  background: #f8f9fa;
+}
